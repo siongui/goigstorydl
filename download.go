@@ -73,6 +73,25 @@ func DownloadAll() {
 	}
 }
 
+func DownloadHighlight() {
+	users, err := igstory.GetUnreadStories()
+	if err != nil {
+		// return error? or just print?
+		fmt.Println(err)
+		return
+	}
+
+	for _, user := range users {
+		husers, err := igstory.GetUserHighlightStories(user.Id)
+		if err != nil {
+			// return error? or just print?
+			fmt.Println(err)
+			return
+		}
+		igstory.PrintIGUsers(husers)
+	}
+}
+
 func MonitorAndDownload(userid, sessionid, csrftoken string) {
 	igstory.SetUserId(userid)
 	igstory.SetSessionId(sessionid)
