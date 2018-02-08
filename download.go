@@ -1,3 +1,4 @@
+// Package igstorydl helps you download Instagram stories.
 package igstorydl
 
 import (
@@ -9,6 +10,9 @@ import (
 	"time"
 )
 
+// Call shell command wget to download. The reason to use wget is that wget
+// supports automatically resume download. So this package only runs on Linux
+// systems.
 func Wget(url, filepath string) error {
 	// run shell `wget URL -O filepath`
 	cmd := exec.Command("wget", url, "-O", filepath)
@@ -17,6 +21,8 @@ func Wget(url, filepath string) error {
 	return cmd.Run()
 }
 
+// Print info of the story being downloaded, including username, timestamp,
+// URL of the story, and saved file path in local machine.
 func PrintDownloadInfo(username, url, filepath string, timestamp int64) {
 	cc := color.New(color.FgCyan)
 	rc := color.New(color.FgRed)
@@ -47,6 +53,7 @@ func DownloadIGUser(user igstory.IGUser) {
 	}
 }
 
+// Download unexpired stories of users with unread stories.
 func DownloadUnread() {
 	users, err := igstory.GetUnreadStories()
 	if err != nil {
@@ -60,6 +67,7 @@ func DownloadUnread() {
 	}
 }
 
+// Download all unexpired stories
 func DownloadAll() {
 	users, err := igstory.GetAllStories()
 	if err != nil {
@@ -73,7 +81,11 @@ func DownloadAll() {
 	}
 }
 
+// Download highlight stories of following users. Now only download stories of
+// users in reels_tray. FIXME: should download highlight stories of all
+// following users
 func DownloadHighlight() {
+	// FIXME: should get all following users
 	users, err := igstory.GetUnreadStories()
 	if err != nil {
 		// return error? or just print?
@@ -92,6 +104,8 @@ func DownloadHighlight() {
 	}
 }
 
+// Given *ds_user_id*, *sessionid*, and *csrftoken* cookies, monitor and
+// download stories automatically.
 func MonitorAndDownload(userid, sessionid, csrftoken string) {
 	igstory.SetUserId(userid)
 	igstory.SetSessionId(sessionid)

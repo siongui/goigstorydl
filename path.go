@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// Remove query string in the URL
 func StripQueryString(inputUrl string) string {
 	u, err := url.Parse(inputUrl)
 	if err != nil {
@@ -21,6 +22,9 @@ func FormatTimestamp(timestamp int64) string {
 	return t.Format(time.RFC3339)
 }
 
+// Default output folder: stories/
+//
+// TODO: should allow to change output folder.
 func BuildOutputFilePath(username, url string, timestamp int64) string {
 	dirname := path.Join("stories", username)
 	CreateDirIfNotExist(dirname)
