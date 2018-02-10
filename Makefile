@@ -17,5 +17,7 @@ fmt:
 install:
 	@echo "\033[92mInstalling github.com/siongui/goigstorylink ...\033[0m"
 	go get -u github.com/siongui/goigstorylink
+	@echo "\033[92mInstalling github.com/siongui/goigfollow ...\033[0m"
+	go get -u github.com/siongui/goigfollow
 	@echo "\033[92mInstalling github.com/fatih/color ...\033[0m"
 	go get -u github.com/fatih/color

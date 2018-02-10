@@ -19,7 +19,10 @@ func ExampleDownloadHighlight(t *testing.T) {
 	igstory.SetSessionId(os.Getenv("IG_SESSIONID"))
 	igstory.SetCsrfToken(os.Getenv("IG_CSRFTOKEN"))
 	for {
-		DownloadHighlight()
-		time.Sleep(10 * time.Second)
+		DownloadHighlight(
+			os.Getenv("IG_DS_USER_ID"),
+			os.Getenv("IG_SESSIONID"),
+			os.Getenv("IG_CSRFTOKEN"))
+		time.Sleep(30 * time.Minute)
 	}
 }

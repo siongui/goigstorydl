@@ -41,6 +41,11 @@ above information:
 
 1. From `Chrome Developer Tools`_: See this `SO answer`_ or `Obtain cookies`_
    section in `instastories-backup`_ repo.
+
+.. image:: https://i.stack.imgur.com/psJLZ.png
+   :align: center
+   :alt: ds_user_id sessionid csrftoken
+
 2. From Chrome extension: Use EditThisCookie_ or `cookie-txt-export`_ or other
    cookie tools.
 
@@ -71,7 +76,7 @@ References
 ++++++++++
 
 .. [1] `GitHub - siongui/goigstorylink: Get Links (URL) of Instagram Stories in Go <https://github.com/siongui/goigstorylink>`_
-
+.. [2] `GitHub - siongui/goigfollow: Get Instagram following and followers in Go <https://github.com/siongui/goigfollow>`_
 
 .. _Go: https://golang.org/
 .. _UNLICENSE: http://unlicense.org/

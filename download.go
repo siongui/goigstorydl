@@ -4,6 +4,7 @@ package igstorydl
 import (
 	"fmt"
 	"github.com/fatih/color"
+	"github.com/siongui/goigfollow"
 	"github.com/siongui/goigstorylink"
 	"os"
 	"os/exec"
@@ -81,20 +82,17 @@ func DownloadAll() {
 	}
 }
 
-// Download highlight stories of following users. Now only download stories of
-// users in reels_tray. FIXME: should download highlight stories of all
-// following users
-func DownloadHighlight() {
-	// FIXME: should get all following users
-	users, err := igstory.GetUnreadStories()
+// Download highlight stories of following users.
+func DownloadHighlight(ds_user_id, sessionid, csrftoken string) {
+	rf, err := igfollow.GetFollowing(ds_user_id, ds_user_id, sessionid, csrftoken)
 	if err != nil {
 		// return error? or just print?
 		fmt.Println(err)
 		return
 	}
 
-	for _, user := range users {
-		husers, err := igstory.GetUserHighlightStories(user.Id)
+	for _, user := range rf.Users {
+		husers, err := igstory.GetUserHighlightStories(user.Pk)
 		if err != nil {
 			// return error? or just print?
 			fmt.Println(err)
