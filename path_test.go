@@ -17,3 +17,10 @@ func TestFileExt(t *testing.T) {
 		t.Error(ext)
 	}
 }
+
+func TestAddTitleInPath(t *testing.T) {
+	np := AddTitleInPath("stories/username/username-2018-02-10T23:16:49+08:00-1518275809.mp4", "title")
+	if np != "stories/username/title/username-2018-02-10T23:16:49+08:00-1518275809.mp4" {
+		t.Error(np)
+	}
+}

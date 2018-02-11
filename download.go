@@ -38,10 +38,13 @@ func PrintDownloadInfo(username, url, filepath string, timestamp int64) {
 	fmt.Println(" ...")
 }
 
-func DownloadIGUser(user igstory.IGUser) {
+func DownloadIGUser(user igstory.IGUser, isHighlight bool) {
 	for _, story := range user.Stories {
 		// BuildOutputFilePath also create dir if not exist
 		p := BuildOutputFilePath(user.Username, story.Url, story.Timestamp)
+		if isHighlight {
+			p = AddTitleInPath(p, user.Title)
+		}
 		// check if file exist
 		if _, err := os.Stat(p); os.IsNotExist(err) {
 			// file not exists
@@ -64,7 +67,7 @@ func DownloadUnread() {
 	}
 
 	for _, user := range users {
-		DownloadIGUser(user)
+		DownloadIGUser(user, false)
 	}
 }
 
@@ -78,7 +81,7 @@ func DownloadAll() {
 	}
 
 	for _, user := range users {
-		DownloadIGUser(user)
+		DownloadIGUser(user, false)
 	}
 }
 
@@ -98,7 +101,9 @@ func DownloadHighlight(ds_user_id, sessionid, csrftoken string) {
 			fmt.Println(err)
 			return
 		}
-		igstory.PrintIGUsers(husers)
+		for _, huser := range husers {
+			DownloadIGUser(huser, true)
+		}
 	}
 }
 

@@ -40,3 +40,14 @@ func BuildOutputFilePath(username, url string, timestamp int64) string {
 	p := path.Join(dirname, filename)
 	return p
 }
+
+// stories/username/username-2018-02-10T23:16:49+08:00-1518275809.mp4
+// becomes
+// stories/username/title/username-2018-02-10T23:16:49+08:00-1518275809.mp4
+func AddTitleInPath(p, title string) string {
+	dir := path.Dir(p)
+	base := path.Base(p)
+	newdir := path.Join(dir, title)
+	CreateDirIfNotExist(newdir)
+	return path.Join(newdir, base)
+}
